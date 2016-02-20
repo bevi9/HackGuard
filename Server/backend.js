@@ -19,7 +19,6 @@ var map = new hashmap();
 var all = { "users" : [],
              "mon" : []}
 
-map.set('berta',0);
 
 app.post('/mon', function (req, res) {
     all['mon'].push({"id": req.body.user});
@@ -55,6 +54,8 @@ app.post('/ping', function (req, res, next) {
         var cnt = map.get(req.body.user) + 1;
         if(cnt == req.body.id) {
             console.log("All right folks");
+            map.remove(req.body.user);
+            map.set(req.body.user,cnt);
         }
         else {
             throw new Error("Has estat desconectat");
