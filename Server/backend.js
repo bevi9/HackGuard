@@ -29,6 +29,7 @@ app.post('/mon', function (req, res) {
     }
     else {
         res.sendStatus(200);
+        console.log("okay");
         map.set(req.body.user,0);
     }
 });
