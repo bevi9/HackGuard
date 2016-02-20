@@ -23,7 +23,14 @@ map.set('berta',0);
 
 app.post('/mon', function (req, res) {
     all['mon'].push({"id": req.body.user});
-    map.set(req.body.user,0);
+    if(map.has(req.body.user)) {
+        res.send('Ja estats sent monitoritzat');
+        throw new Error("Ja estas sent monitoritzat");
+    }
+    else {
+        res.sendStatus(200);
+        map.set(req.body.user,0);
+    }
 });
 
 
@@ -51,7 +58,6 @@ app.post('/ping', function (req, res, next) {
         else {
             throw new Error("Has estat desconectat");
             client.post('statuses/update', {status: "Remember remember the fifth of november"}, function(error, tweet, response){
-                if(error) throw error;
                 console.log(tweet);  // Tweet body.
                 console.log(response);  // Raw response object.
             });
