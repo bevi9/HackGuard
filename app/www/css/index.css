@@ -60,8 +60,8 @@ body {
 }
 
 h1 {
-    font-size:24px;
-    font-weight:normal;
+    font-size:3em;
+    font-weight:bold;
     margin:0px;
     overflow:visible;
     padding:0px;
@@ -102,4 +102,8 @@ h1 {
 .blink {
     animation:fade 3000ms infinite;
     -webkit-animation:fade 3000ms infinite;
+}
+
+#disableButton {
+    height: 50px;
 }
