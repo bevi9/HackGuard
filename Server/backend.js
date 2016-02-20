@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //key = id, value 1r 0
 var hashmap = require('hashmap');
 
-var Twitter = require('Twitter');
+var Twitter = require('twitter');
 
 var map = new hashmap();
 
