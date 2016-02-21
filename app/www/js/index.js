@@ -47,3 +47,39 @@ var app = {
         console.log('Received Event: ' + id);
     }
 };
+
+var ACK_URL = "http://hackupc.ddns.net:8080/mon";
+var stop = false;
+
+function checkStatus() {
+    var user = $("#username").val();
+    var data = {
+        user: user
+    };
+    $.ajax({
+        type: "POST",
+        url: ACK_URL,
+        data: data,
+        success: success,
+        dataType: dataType
+    });
+}
+
+function dataType() {}
+
+function success() {}
+
+function startCheck() {
+    monitorFunc();
+}
+
+function stopCheck() {
+    stop = true;
+}
+
+function monitorFunc() {
+    setTimeout(function() {
+        checkStatus();
+        if (!stop) monitorFunc();
+    }, 1000);
+}
