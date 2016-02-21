@@ -92,6 +92,7 @@ app.post('/ping', function (req, res, next) {
         }
 
         else {
+            us = us.replace('"','');
             client.post('statuses/update', {status: "Laptop from @" + us + "has been stolen" }, function(error, tweet, response){
                 console.log("tweet sent");
             });
