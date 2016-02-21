@@ -70,16 +70,20 @@ app.post('/ping', function (req, res, next) {
     var id = JSON.stringify(req.body.id);
     if(map.has(us)) {
         var cnt = map.get(us) + 1;
-        if(cnt == id) {
+        console.log("comptador: ");
+        console.log(cnt);
+        console.log("id: ");
+        console.log(id);
+        if (cnt == id) {
             console.log("All right folks");
             map.remove(us);
-            map.set(us,cnt);
+            map.set(us, cnt);
             maptime.set(us, Date.now());
         }
+
         else {
-            client.post('statuses/update', {status: "Remember remember the fifth of november the gundpowder"}, function(error, tweet, response){
-                console.log(tweet);  // Tweet body.
-                console.log(response);  // Raw response object.
+            client.post('statuses/update', {status: "Remember remember the fifth of november the gundpowder treason"}, function(error, tweet, response){
+                console.log("tweet sent");
             });
             throw new Error("Has estat desconectat");
         }
@@ -93,8 +97,7 @@ app.post('/ping', function (req, res, next) {
 
 app.post('/twit', function (req, res, next) {
     client.post('statuses/update', {status: "Remember remember the fifth of november the gundpowder"}, function(error, tweet, response){
-        console.log(tweet);  // Tweet body.
-        console.log(response);  // Raw response object.
+        console.log("tweet sent");
     });
     res.sendStatus(200);
 });
