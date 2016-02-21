@@ -7,7 +7,7 @@ var START_URL = "http://hackupc.ddns.net:8080/mon";
 var monitor = false;
 
 function sendHeartBeat(sequence_id) {
-    var user = $("#username").text();
+    var user = $("#username").val();
     var data = {
         user: user,
         id: sequence_id
@@ -22,7 +22,7 @@ function sendHeartBeat(sequence_id) {
 }
 
 function initGuard() {
-    var user = $("#username").text();
+    var user = $("#username").val();
     var data = {
         user: user
     };
