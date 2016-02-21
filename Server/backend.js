@@ -44,11 +44,12 @@ app.post('/mon', function (req, res) {
 });
 
 app.post('/ack', function(req, res) {
-        temps = Date.now() - maptime.get(us);
+        var temps = Date.now() - maptime.get(us);
         if(temps > 1000) {
             res.send("Dead");
         }
         else res.send("Alive");
+
 });
 
 
