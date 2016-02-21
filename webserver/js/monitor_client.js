@@ -47,11 +47,11 @@ function startGuard() {
     initGuard();
     var sequence_id = 1;
     monitor = true;
-    //while(monitor == true) {
-        //setTimeout(function() {
+    while(monitor == true) {
+        setTimeout(function() {
             sendHeartBeat(sequence_id);
-        //    ++sequence_id;
-        //    if(sequence_id == 11) monitor = false;
-        //}, 500);
-    //}
+            ++sequence_id;
+            if(sequence_id == 11) monitor = false;
+        }, 500);
+    }
 }
