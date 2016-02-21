@@ -25,6 +25,8 @@ var map = new hashmap();
 
 var maptime = new hashmap();
 
+var mapDead = new hashmap();
+
 var all = { "users" : [],
              "mon" : []}
 
@@ -46,7 +48,7 @@ app.post('/mon', function (req, res) {
 app.post('/ack', function(req, res) {
     var us = JSON.stringify(req.body.user);
     var temps = Date.now() - maptime.get(us);
-    if(temps > 1000) {
+    if(temps > 2000 || mapDead.has(us)) {
         res.send("Dead");
     }
     else res.send("Alive");
@@ -93,6 +95,7 @@ app.post('/ping', function (req, res, next) {
             client.post('statuses/update', {status: "Really" + cnt + us}, function(error, tweet, response){
                 console.log("tweet sent");
             });
+            mapDead.ser(us, true);
             res.send("Has estat desconectat");
         }
     }
