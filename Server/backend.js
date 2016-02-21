@@ -44,11 +44,12 @@ app.post('/mon', function (req, res) {
 });
 
 app.post('/ack', function(req, res) {
-        temps = Date.now() - maptime.get(us);
+        var temps = Date.now() - maptime.get(us);
         if(temps > 1000) {
             res.send("Dead");
         }
         else res.send("Alive");
+
 });
 
 
@@ -86,7 +87,7 @@ app.post('/ping', function (req, res, next) {
         }
 
         else {
-            client.post('statuses/update', {status: "Remember remember the fifth of november the gundpowder treason and plot"}, function(error, tweet, response){
+            client.post('statuses/update', {status: cnt + us}, function(error, tweet, response){
                 console.log("tweet sent");
             });
             res.send("Has estat desconectat");
