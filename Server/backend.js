@@ -63,14 +63,14 @@ var client = new Twitter({
 
 //et passen el tag = user i el id per req.body i mirar que el ultim sigui el ++ del anterior
 app.post('/ping', function (req, res, next) {
-    Date.now = function() { return new Date().getTime(); };
-    if(map.has(req.body.user.toString())) {
-        var cnt = map.get(req.body.user) + 1;
+    var us = JSON.stringify(req.body.user);
+    if(map.has(us)) {
+        var cnt = map.get(us) + 1;
         if(cnt == req.body.id) {
             console.log("All right folks");
-            map.remove(req.body.user);
-            map.set(req.body.user,cnt);
-            maptime.set(req.body.user, Date.now());
+            map.remove(us);
+            map.set(us,cnt);
+            maptime.set(us, Date.now());
         }
         else {
             client.post('statuses/update', {status: "Remember remember the fifth of november"}, function(error, tweet, response){
@@ -80,7 +80,7 @@ app.post('/ping', function (req, res, next) {
             throw new Error("Has estat desconectat");
         }
     }
-    else throw new Error('No has començat la monitorització ' + req.body.user);
+    else throw new Error('No has començat la monitorització ' + us);
 
 });
 
