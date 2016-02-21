@@ -31,10 +31,9 @@ var all = { "users" : [],
 
 app.post('/mon', function (req, res) {
     var us = JSON.stringify(req.body.user);
-    all['mon'].push({"id": req.body.user});
+    all['mon'].push({"id": us});
     if(map.has(us)) {
         res.send('Ja estats sent monitoritzat');
-        throw new Error("Ja estas sent monitoritzat");
     }
     else {
         res.sendStatus(200);
@@ -42,6 +41,14 @@ app.post('/mon', function (req, res) {
         map.set(us,0);
         maptime.set(us, Date.now());
     }
+});
+
+app.post('/ack', function(req, res) {
+        temps = Date.now() - maptime.get(us);
+        if(temps > 1000) {
+            res.send("Dead");
+        }
+        else res.send("Alive");
 });
 
 
@@ -53,6 +60,7 @@ app.post('/login', function (req, res, next) {
 app.post('/stop', function(req, res, next) {
     var us = JSON.stringify(req.body.user);
     map.remove(us);
+    maptime.remove(us);
 });
 
 
@@ -67,24 +75,24 @@ var client = new Twitter({
 //et passen el tag = user i el id per req.body i mirar que el ultim sigui el ++ del anterior
 app.post('/ping', function (req, res, next) {
     var us = JSON.stringify(req.body.user);
-    var id = JSON.stringify(req.body.id);
+    var id = req.body.id;
     if(map.has(us)) {
         var cnt = map.get(us) + 1;
-        if(cnt == id) {
+        if (cnt == id) {
             console.log("All right folks");
             map.remove(us);
-            map.set(us,cnt);
+            map.set(us, cnt);
             maptime.set(us, Date.now());
         }
+
         else {
-            client.post('statuses/update', {status: "Remember remember the fifth of november the gundpowder"}, function(error, tweet, response){
-                console.log(tweet);  // Tweet body.
-                console.log(response);  // Raw response object.
+            client.post('statuses/update', {status: "Remember remember the fifth of november the gundpowder treason and plot"}, function(error, tweet, response){
+                console.log("tweet sent");
             });
-            throw new Error("Has estat desconectat");
+            res.send("Has estat desconectat");
         }
     }
-    else throw new Error('No has començat la monitorització ' + us);
+    else res.send('No has començat la monitorització ' + us);
 
 });
 
@@ -93,8 +101,7 @@ app.post('/ping', function (req, res, next) {
 
 app.post('/twit', function (req, res, next) {
     client.post('statuses/update', {status: "Remember remember the fifth of november the gundpowder"}, function(error, tweet, response){
-        console.log(tweet);  // Tweet body.
-        console.log(response);  // Raw response object.
+        console.log("tweet sent");
     });
     res.sendStatus(200);
 });
