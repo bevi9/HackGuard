@@ -52,6 +52,6 @@ function startGuard() {
             sendHeartBeat(sequence_id);
             ++sequence_id;
             if(sequence_id == 11) monitor = false;
-        }, 500);
+        }, 1000);
     }
 }
