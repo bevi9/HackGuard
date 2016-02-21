@@ -34,7 +34,6 @@ app.post('/mon', function (req, res) {
     all['mon'].push({"id": us});
     if(map.has(us)) {
         res.send('Ja estats sent monitoritzat');
-        throw new Error("Ja estas sent monitoritzat");
     }
     else {
         res.sendStatus(200);
@@ -42,6 +41,16 @@ app.post('/mon', function (req, res) {
         map.set(us,0);
         maptime.set(us, Date.now());
     }
+});
+
+app.post('/ack', function(req, res) {
+    maptime.forEach(function(value, key) {
+        temps = Date.now() - maptime.get(us);
+        if(temps > 1000) {
+            res.send("Dead");
+        }
+        else res.send("Alive");
+    });
 });
 
 
@@ -53,6 +62,7 @@ app.post('/login', function (req, res, next) {
 app.post('/stop', function(req, res, next) {
     var us = JSON.stringify(req.body.user);
     map.remove(us);
+    maptime.remove(us);
 });
 
 
@@ -70,10 +80,6 @@ app.post('/ping', function (req, res, next) {
     var id = req.body.id;
     if(map.has(us)) {
         var cnt = map.get(us) + 1;
-        console.log("comptador: ");
-        console.log(cnt);
-        console.log("id: ");
-        console.log(id);
         if (cnt == id) {
             console.log("All right folks");
             map.remove(us);
@@ -85,10 +91,10 @@ app.post('/ping', function (req, res, next) {
             client.post('statuses/update', {status: "Remember remember the fifth of november the gundpowder treason and plot"}, function(error, tweet, response){
                 console.log("tweet sent");
             });
-            throw new Error("Has estat desconectat");
+            res.send("Has estat desconectat");
         }
     }
-    else throw new Error('No has començat la monitorització ' + us);
+    else res.send('No has començat la monitorització ' + us);
 
 });
 
