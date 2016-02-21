@@ -95,7 +95,7 @@ app.post('/ping', function (req, res, next) {
             client.post('statuses/update', {status: "Laptop from @" + us + "has been stolen" }, function(error, tweet, response){
                 console.log("tweet sent");
             });
-            mapDead.ser(us, true);
+            mapDead.set(us, true);
             res.send("Has estat desconectat");
         }
     }
