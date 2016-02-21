@@ -5,6 +5,7 @@
 var HEARTBEAT_URL = "http://hackupc.ddns.net:8080/ping";
 var START_URL = "http://hackupc.ddns.net:8080/mon";
 var monitor = false;
+var sequence_id = 1;
 
 function sendHeartBeat(sequence_id) {
     var user = $("#username").val();
@@ -41,12 +42,14 @@ function success() {}
 
 function startGuard() {
     initGuard();
-    var sequence_id = 1;
     monitor = true;
-    //while(monitor == true) {
-        setTimeout(function() {
-            sendHeartBeat(sequence_id);
-            ++sequence_id;
-        }, 1000);
-    //}
+    monitor();
+}
+
+function monitor() {
+    setTimeout(function() {
+        sendHeartBeat(sequence_id);
+        ++sequence_id;
+        monitor();
+    }, 1000);
 }
