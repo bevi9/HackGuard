@@ -103,9 +103,6 @@ app.post('/ping', function (req, res, next) {
 
 });
 
-
-
-
 app.post('/twit', function (req, res, next) {
     client.post('statuses/update', {status: "Remember remember the fifth of november the gundpowder"}, function(error, tweet, response){
         console.log("tweet sent");
@@ -115,9 +112,3 @@ app.post('/twit', function (req, res, next) {
 
 
 app.listen(8080);
-
-
-
-
-
-
