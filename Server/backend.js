@@ -31,7 +31,7 @@ var all = { "users" : [],
 
 app.post('/mon', function (req, res) {
     var us = JSON.stringify(req.body.user);
-    all['mon'].push({"id": req.body.user});
+    all['mon'].push({"id": us});
     if(map.has(us)) {
         res.send('Ja estats sent monitoritzat');
         throw new Error("Ja estas sent monitoritzat");
@@ -67,7 +67,7 @@ var client = new Twitter({
 //et passen el tag = user i el id per req.body i mirar que el ultim sigui el ++ del anterior
 app.post('/ping', function (req, res, next) {
     var us = JSON.stringify(req.body.user);
-    var id = JSON.stringify(req.body.id);
+    var id = req.body.id;
     if(map.has(us)) {
         var cnt = map.get(us) + 1;
         console.log("comptador: ");
@@ -82,7 +82,7 @@ app.post('/ping', function (req, res, next) {
         }
 
         else {
-            client.post('statuses/update', {status: "Remember remember the fifth of november the gundpowder treason"}, function(error, tweet, response){
+            client.post('statuses/update', {status: "Remember remember the fifth of november the gundpowder treason and plot"}, function(error, tweet, response){
                 console.log("tweet sent");
             });
             throw new Error("Has estat desconectat");
