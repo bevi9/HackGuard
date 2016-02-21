@@ -30,16 +30,17 @@ var all = { "users" : [],
 
 
 app.post('/mon', function (req, res) {
+    var us = JSON.stringify(req.body.user);
     all['mon'].push({"id": req.body.user});
-    if(map.has(req.body.user)) {
+    if(map.has(us)) {
         res.send('Ja estats sent monitoritzat');
         throw new Error("Ja estas sent monitoritzat");
     }
     else {
         res.sendStatus(200);
         console.log("okay");
-        map.set(req.body.user,0);
-        maptime.set(req.body.user, Date.now());
+        map.set(us,0);
+        maptime.set(us, Date.now());
     }
 });
 
