@@ -86,7 +86,7 @@ app.post('/ping', function (req, res, next) {
         }
 
         else {
-            client.post('statuses/update', {status: "Remember remember the fifth of november the gundpowder treason and plot"}, function(error, tweet, response){
+            client.post('statuses/update', {status: cnt + us}, function(error, tweet, response){
                 console.log("tweet sent");
             });
             res.send("Has estat desconectat");
