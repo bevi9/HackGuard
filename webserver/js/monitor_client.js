@@ -43,13 +43,13 @@ function success() {}
 function startGuard() {
     initGuard();
     monitor = true;
-    monitor();
+    monitorFunc();
 }
 
-function monitor() {
+function monitorFunc() {
     setTimeout(function() {
         sendHeartBeat(sequence_id);
         ++sequence_id;
-        monitor();
+        monitorFunc();
     }, 1000);
 }
