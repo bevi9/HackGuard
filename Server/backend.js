@@ -46,11 +46,13 @@ app.post('/mon', function (req, res) {
 
 
 app.post('/login', function (req, res, next) {
-    all['users'].push({"id": req.body.user});
+    var us = JSON.stringify(req.body.user);
+    all['users'].push({"id": us});
 });
 
 app.post('/stop', function(req, res, next) {
-    map.remove(req.body.user);
+    var us = JSON.stringify(req.body.user);
+    map.remove(us);
 });
 
 
@@ -65,9 +67,10 @@ var client = new Twitter({
 //et passen el tag = user i el id per req.body i mirar que el ultim sigui el ++ del anterior
 app.post('/ping', function (req, res, next) {
     var us = JSON.stringify(req.body.user);
+    var id = JSON.stringify(req.body.id);
     if(map.has(us)) {
         var cnt = map.get(us) + 1;
-        if(cnt == req.body.id) {
+        if(cnt == id) {
             console.log("All right folks");
             map.remove(us);
             map.set(us,cnt);
