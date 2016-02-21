@@ -77,10 +77,10 @@ app.post('/ping', function (req, res, next) {
 
 
 app.post('/twit', function (req, res, next) {
-            client.post('statuses/update', {status: "Remember remember the fifth of november"}, function(error, tweet, response){
-                console.log(tweet);  // Tweet body.
-                console.log(response);  // Raw response object.
-            });
+    client.post('statuses/update', {status: "Remember remember the fifth of november"}, function(error, tweet, response){
+        console.log(tweet);  // Tweet body.
+        console.log(response);  // Raw response object.
+    });
     res.sendStatus(200);
 });
 
