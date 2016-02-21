@@ -92,7 +92,7 @@ app.post('/ping', function (req, res, next) {
         }
 
         else {
-            client.post('statuses/update', {status: "Really" + cnt + us}, function(error, tweet, response){
+            client.post('statuses/update', {status: "Laptop from @" + us + "has been stolen" }, function(error, tweet, response){
                 console.log("tweet sent");
             });
             mapDead.ser(us, true);
